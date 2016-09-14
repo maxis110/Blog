@@ -1,4 +1,12 @@
 from django.contrib import admin
-from models import Post
+from models import Post, Comments
 
-admin.site.register(Post)
+class PostInline(admin.StackedInline):
+    model = Comments
+
+class PostAdmin(admin.ModelAdmin):
+    inlines = [PostInline]
+
+
+admin.site.register(Post, PostAdmin)
+
