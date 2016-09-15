@@ -46,20 +46,22 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+                 {% if user.is_authenticated %}
+                <p class="top-menu">Hello {{ user.username }}<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+                {% endif %}
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
                     <li>
                         <a href="{% url 'post_new' %}">NEW Post</a>
                     </li>
-                    <li>
-                        <a href="">Edit Post</a>
-                    </li>
                     {% endif %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
                     <li>
                         <a href="{% url 'user_new' %}">Registration</a>
                     </li>

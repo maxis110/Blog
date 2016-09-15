@@ -1,10 +1,15 @@
 {% extends 'blog/index.html' %}
 
- {% block register %}
-        <h1>Register</h1>
-        <form method="POST" class="user_new">{% csrf_token %}
-
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-default">Register</button>
-        </form>
-{% endblock %}
+<html>
+  <head>
+    <title>Регистрация</title>
+  </head>
+  <body>
+    <form action="" method="post">
+      {% csrf_token %}
+      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+      {{ user.username }}
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  </body>
+</html>

@@ -16,28 +16,28 @@ class Post(models.Model):
     datatime = models.DateTimeField(default=timezone.now)
     autor = models.TextField(User)
 
-
     def __unicode__(self):
         return self.title
 
     def get_absolute_url(self):
         return "/blog/{}/" .format(self.id)
 
-#class User(AbstractBaseUser):
+class User(AbstractBaseUser):
 
-#    id_user = models.AutoField(primary_key=True)
-#    first_name = models.CharField(max_length=30)
-#    last_name = models.CharField(max_length=30)
-#    email = models.EmailField('email address', unique=True, db_index=True)
-#    password = models.CharField(max_length=128, default=False)
-#    is_active = models.BooleanField(default=True)
-#    is_admin = models.BooleanField(default=False)
-#    last_login = models.DateTimeField(null=True)
-#
-#    def __unicode__(self):
-#        return self.email
+    id_user = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField('email address', unique=True, db_index=True)
+    password = models.CharField(max_length=128, default=False)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True)
 
-#    USERNAME_FIELD = 'email'
+    def __unicode__(self):
+        return self.email
+
+    USERNAME_FIELD = 'email'
 
 class Comments(models.Model):
 
@@ -45,6 +45,4 @@ class Comments(models.Model):
         db_table = 'comments'
 
     comments_text = models.TextField(max_length=10000)
-    comments_post = models.ForeignKey(Post)
-
-
+    comments_post = models.ForeignKey(Post, related_name='comments')

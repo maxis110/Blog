@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, User
+from .models import Post, User, Comments
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 
@@ -9,8 +9,14 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'content',)
 
-class UserCreationForm(forms.ModelForm):
+#class UsersCreationForm(forms.ModelForm):
+
+ #   class Meta:
+  #      model = User
+   #     fields = ('username', 'email', 'password')
+
+class CommentForm(forms.ModelForm):
 
     class Meta:
-        model = User
-        fields = ('email', 'password')
+        model = Comments
+        fields = ('comments_text',)
