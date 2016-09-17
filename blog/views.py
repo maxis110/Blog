@@ -7,7 +7,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
+from .form import UsersCreationForm
 from django.contrib.auth.models import User
+
 
 
 class PostsListView(ListView):
@@ -23,9 +25,20 @@ class RegisterFormView(FormView):
     template_name = "blog/register.html"
 
     def form_valid(self, form):
-        user = form.save()
+        form.save()
         return super(RegisterFormView, self).form_valid(form)
 
+def registration(request):
+    if request.method == 'POST':
+        form = UsersCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/blog')
+    else:
+        args = {}
+        args.update(request)
+        args['form'] = UsersCreationForm()
+    return render(request, 'blog/register.html', args)
 
 @login_required
 def comments_add(request, pk):
@@ -69,7 +82,6 @@ def post_new(request):
 def post_detail(request, pk=1):
      return render(request, 'blog/post_detail.html', {'post':Post.objects.get(id=pk),
                                                       'comments': Comments.objects.filter(comments_post_id=pk)})
-
 
 def post_edit(request, pk):
         post = get_object_or_404(Post, pk=pk)

@@ -9,11 +9,18 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'content',)
 
-#class UsersCreationForm(forms.ModelForm):
+class UsersCreationForm(UserCreationForm):
 
- #   class Meta:
-  #      model = User
-   #     fields = ('username', 'email', 'password')
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2',)
+
+    def save(self, commit=True):
+        user = super(UserCreationForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 class CommentForm(forms.ModelForm):
 
