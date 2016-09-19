@@ -26,7 +26,7 @@ class Comments(models.Model):
 
     comments_text = models.TextField(max_length=10000)
     comments_date = models.DateTimeField(default=timezone.now)
-    comments_post = models.ForeignKey(Post, related_name='comments')
+    comments_post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     autors = models.ForeignKey(User, related_name='autor')
 
     class Meta:
