@@ -17,8 +17,6 @@ class UserTest(TestCase):
         self.assertEqual(self.user.objects.all()[0].email, 'TEST@test.com')
         self.assertEqual(self.user.objects.all()[0].check_password('123456Test'), True)
 
-    def test_user_delete_success(self):
-        pass
 
 class PostTest(TestCase):
 
