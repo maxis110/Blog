@@ -7,6 +7,6 @@ class PostInline(admin.StackedInline):
 class PostAdmin(admin.ModelAdmin):
     inlines = [PostInline]
 
-
 admin.site.register(Post, PostAdmin)
+
 

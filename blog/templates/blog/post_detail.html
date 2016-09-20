@@ -1,21 +1,49 @@
-{% extends 'blog/index.html' %}
+{% extends 'blog/post.html' %}
 {% load staticfiles %}
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 </head>
 {% block content %}
-<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+{% if user.is_superuser %}
+<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">Edit post<span class="glyphicon glyphicon-pencil"></span></a>
+<a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}">Delete post<span class="glyphicon glyphicon-pencil"></span></a>
+{% endif %}
     <p>{{ post.datetime }}</p>
     <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
-<p>Comments</p>
-    {% for comments in comments %}
+ <hr>
+{% if user.is_authenticated %}
+<a class="btn btn-default" href="{% url 'comments_add' pk=post.pk %}">Add comment</a>
+    {% endif %}
+<div class="comments">
+<h6 class="title-comments">Comments:</h6>
 
-    <p>{{ comments.comments_text }}</p>
-
-    {% endfor %}
+<ul class="media-list">
 
 
+{% for comments in comments %}
+  <li class="media">
 
+    <div class="media-body">
+      <div class="media-heading">
+        <div class="author">{{ comments.autors }}</div>
+        <div class="metadata">
+          <span class="date">{{ comments.comments_date }}</span>
+            {% if user.is_authenticated %}
+        <a href="{% url 'comments_remove' pk=comments.pk %}">Remove comment<span class="glyphicon glyphicon-remove"></span></a>
+            {% endif %}
+        </div>
+      </div>
+
+      <div class="media-text text-justify">{{ comments.comments_text }}</div>
+      <div class="footer-comment">
+
+      </div>
+      <hr>
+  	</div>
+  </li>
+{% endfor %}
+</ul>
+</div>
 {% endblock %}
