@@ -18,7 +18,6 @@ class UserTest(TestCase):
         self.assertEqual(self.user.objects.all()[0].check_password('123456Test'), True)
 
 
-
 class PostTest(TestCase):
 
     def setUp(self):
