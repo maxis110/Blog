@@ -11,6 +11,7 @@
         </head>
         <body>
            {% for post in object_list %}
+
            <hr>
             <div class="post-preview">
 
@@ -20,6 +21,13 @@
                         </h2>
                     </a>
                     <p class="post-meta">Posted on {{ post.datatime }}</p> <p>Comments: {{ post.comments.count }} </p>
+                    {% if user.is_authenticated%}
+
+                    <a href="{% url 'add_likes' pk=post.pk %}" >
+                        <span class="glyphicon glyphicon-thumbs-up"></span> Like {{post.likes.count}}
+                    </a>
+
+                    {% endif %}
 
             </div>
            <hr>

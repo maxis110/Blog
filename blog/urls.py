@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^register/$', views.registration, name='user_new'),
     url(r'^post/(?P<pk>\d+)/comment/$', views.comments_add, name='comments_add'),
     url(r'^comment/(?P<pk>\d+)/remove/$', views.comments_remove, name='comments_remove'),
+    url(r'^(?P<pk>[0-9]+)/likes/$', views.add_likes, name='add_likes'),
 
 ]

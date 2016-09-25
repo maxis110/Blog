@@ -1,4 +1,4 @@
-from .models import Post, Comments
+from .models import Post, Comments, Likes
 from .form import PostForm, CommentForm
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from .form import UsersCreationForm
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 from django.contrib.auth.models import User
 
 
@@ -104,3 +106,8 @@ def post_delete(request, pk):
     post.delete()
     return redirect('/blog', pk=post.pk)
 
+
+def add_likes(request, pk):
+
+    Likes.objects.get_or_create(post_likes_id=pk, user_likes_id=request.user.id)
+    return redirect('/blog')

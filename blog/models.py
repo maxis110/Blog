@@ -31,3 +31,12 @@ class Comments(models.Model):
 
     class Meta:
             db_table = 'comments'
+
+
+class Likes(models.Model):
+
+    post_likes = models.ForeignKey(Post, related_name='likes')
+    user_likes = models.ForeignKey(User)
+
+    class Meta:
+        db_table = 'likes'
