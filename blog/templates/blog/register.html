@@ -6,7 +6,7 @@
 <form method="POST" action="{% url 'user_new' %}">
   <div class="form-group">
     <label for="username">Login:</label>
-    <input type="username" class="form-control" id="username" value="{{ form.username }}">
+    <input placeholder="test" type="text" class="form-control" id="username"  value="{{ form.username|safe }}">
   </div>
   <div class="form-group">
     <label for="email">Email address:</label>

@@ -1,7 +1,7 @@
 from django import forms
 from .models import Post, User, Comments
-from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
+
 
 class PostForm(forms.ModelForm):
 
@@ -9,11 +9,8 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'content',)
 
-class UsersCreationForm(UserCreationForm):
 
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2',)
+class UsersCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
@@ -21,6 +18,11 @@ class UsersCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2',)
+
 
 class CommentForm(forms.ModelForm):
 

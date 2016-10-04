@@ -1,9 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import User
 
 
 class Post(models.Model):
@@ -31,3 +29,12 @@ class Comments(models.Model):
 
     class Meta:
             db_table = 'comments'
+
+
+class Likes(models.Model):
+
+    post_likes = models.ForeignKey(Post, related_name='likes')
+    user_likes = models.ForeignKey(User)
+
+    class Meta:
+        db_table = 'likes'

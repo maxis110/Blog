@@ -1,0 +1,16 @@
+../env/local/lib/python2.7/site-packages/django/contrib/auth/models.py:157: [E] PYFLAKES:undefined name 'c'
+../env/local/lib/python2.7/site-packages/django/contrib/messages/__init__.py:1: [E] PYFLAKES:'from django.contrib.messages.api import *' used; unable to detect undefined names
+../env/local/lib/python2.7/site-packages/django/contrib/messages/__init__.py:1: [E] PYFLAKES:'django.contrib.messages.api.*' imported but unused
+../env/local/lib/python2.7/site-packages/django/contrib/messages/__init__.py:2: [E] PYFLAKES:'from django.contrib.messages.constants import *' used; unable to detect undefined names
+../env/local/lib/python2.7/site-packages/django/contrib/messages/__init__.py:2: [E] PYFLAKES:'django.contrib.messages.constants.*' imported but unused
+blog/models.py:3: [E] PYFLAKES:'django.contrib.auth.models.AbstractBaseUser' imported but unused
+blog/models.py:4: [E] PYFLAKES:'django.shortcuts.redirect' imported but unused
+blog/models.py:4: [E] PYFLAKES:'django.shortcuts.render' imported but unused
+blog/models.py:6: [E] PYFLAKES:'django.contrib.auth.models.AbstractUser' imported but unused
+blog/views.py:11: [E] PYFLAKES:'django.contrib.auth.models.User' imported but unused
+blog/views.py:52: [E] PYFLAKES:local variable 'comments_date' is assigned to but never used
+blog/views.py:63: [E] PYFLAKES:local variable 'id' is assigned to but never used
+blog/form.py:3: [E] PYFLAKES:'django.views.generic.edit.FormView' imported but unused
+blog/tests.py:4: [E] PYFLAKES:'django.shortcuts.get_object_or_404' imported but unused
+blog/tests.py:54: [E] PYFLAKES:local variable 'new_user' is assigned to but never used
+blog/tests.py:63: [E] PYFLAKES:local variable 'new_user' is assigned to but never used

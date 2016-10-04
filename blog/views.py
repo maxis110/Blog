@@ -1,5 +1,5 @@
-from .models import Post, Comments
-from .form import PostForm, CommentForm
+from .models import Post, Comments, Likes
+from .form import PostForm, CommentForm, UsersCreationForm
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
@@ -7,13 +7,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
-from .form import UsersCreationForm
-from django.contrib.auth.models import User
-
 
 
 class PostsListView(ListView):
     model = Post
+
 
 class PostDetailView(DetailView):
     model = Post
@@ -28,6 +26,7 @@ class RegisterFormView(FormView):
         form.save()
         return super(RegisterFormView, self).form_valid(form)
 
+
 def registration(request):
     if request.method == 'POST':
         form = UsersCreationForm(request.POST)
@@ -40,6 +39,7 @@ def registration(request):
         args['form'] = UsersCreationForm()
     return render(request, 'blog/register.html', args)
 
+
 @login_required
 def comments_add(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -49,13 +49,13 @@ def comments_add(request, pk):
         if form.is_valid():
             comments = form.save(commit=False)
             comments.comments_post_id = post.id
-            comments_date = timezone.now()
             comments.autors = request.user
             comments.save()
             return redirect('/blog/{}/'.format(pk), pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'blog/comments_add.html', {'form': form})
+
 
 @login_required
 def comments_remove(request, pk):
@@ -79,9 +79,11 @@ def post_new(request):
         form = PostForm()
         return render(request, 'blog/post_new.html', {'form': form})
 
-def post_detail(request, pk=1):
+
+def post_detail(request, pk):
      return render(request, 'blog/post_detail.html', {'post':Post.objects.get(id=pk),
                                                       'comments': Comments.objects.filter(comments_post_id=pk)})
+
 
 def post_edit(request, pk):
         post = get_object_or_404(Post, pk=pk)
@@ -104,3 +106,8 @@ def post_delete(request, pk):
     post.delete()
     return redirect('/blog', pk=post.pk)
 
+
+def add_likes(request, pk):
+
+    Likes.objects.get_or_create(post_likes_id=pk, user_likes_id=request.user.id)
+    return redirect('/blog')

@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from .models import Post, Comments
-from django.shortcuts import get_object_or_404
+from .models import Post, Comments, Likes
 
 # Create your tests here.
 
@@ -43,6 +42,7 @@ class PostTest(TestCase):
         test.delete()
         self.assertEquals(len(self.form.filter(id=test_id)), 0)
 
+
 class CommentsTest(TestCase):
 
     def setUp(self):
@@ -66,3 +66,16 @@ class CommentsTest(TestCase):
         self.assertEqual(self.comment.all().count(), 1)
         self.new_comment.delete()
         self.assertEqual(self.comment.all().count(), 0)
+
+
+class LikesTest(TestCase):
+
+    def setUp(self):
+        self.likes = Likes.objects
+
+    def test_likes_add(self):
+        new_post = Post.objects.create(title='dummy')
+        new_post.save()
+        new_user = get_user_model().objects._create_user(username='TEST', email='TEST@test.com', password='123456Test')
+        new_like = self.likes.create(post_likes_id=3, user_likes_id=3)
+        self.assertEqual(self.likes.all().count(), 1)
